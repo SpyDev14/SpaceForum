@@ -72,11 +72,10 @@
         .subtitle {
             color: var(--text-color);
             opacity: 0.8;
-            margin-bottom: 1.5rem;
         }
 
         .contacts {
-            margin: 1.5rem 0;
+            margin: 0.5rem 0;
         }
 
         .contacts ul {
@@ -171,30 +170,27 @@
     <header>
         <h1>S I T E</h1>
         <p class="subtitle">Сайт-пример для изучения Django (который я люблю читать как `Янго`)</p>
+		<section class="contacts">
+			<ul>
+				<li><a href="https://github.com/SpyDev14" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+				<li><a href="https://t.me/bViewVariables" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+			</ul>
+		</section>
     </header>
 
-    <section class="contacts">
-        <p>Мои контакты:</p>
-        <ul>
-            <li><a href="https://github.com/SpyDev14" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            <li><a href="https://t.me/bViewVariables" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-        </ul>
-    </section>
 
     <main>
-        <h2>Posts:</h2>
+        <h2 style="text-align: center; margin-top: 1rem;">Posts</h2>
         <div class="post-container">
-            <article class="post">
-                <h3>Дебаг-пост #1</h3>
-                <div class="post-content">Захардкоженный пост в HTML страницы для дебага</div>
-                <div class="post-meta">24.04.25 11:18 by SpyDev14</div>
-            </article>
-
-            <article class="post">
-                <h3>Дебаг-пост #2</h3>
-                <div class="post-content">Захардкоженный пост в HTML страницы для дебага</div>
-                <div class="post-meta">24.04.25 11:19 by SpyDev14</div>
-            </article>
+			{% for post in posts %}
+				<article class="post">
+					<h3>{{ post.title|truncatechars:96 }}</h3>
+					<div class="post-content">{{ post.text }}</div>
+					<div class="post-meta">{{post.created_date|date:"d.m.y H:i"}} by {{post.author}}</div>
+				</article>
+			{% empty %}
+				<p class="subtitle">Постов пока нет :&lt</p>
+			{% endfor %}
         </div>
     </main>
 
