@@ -1,50 +1,229 @@
-<html>
-	<head>
-		<title>Post list</title>
-		<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-	</head>
-	<body>
-		<h1>S I T E</h1>
-		<p>Сайт-пример для изучения Django (который я люблю читать как `Янго`)</p>
-		<p>Мои контакты (хуй знает для кого они тут)</p>
-		<ul>
-			<li><a href="https://github.com/SpyDev14">GitHub</a></li>
-			<li><a href="https://t.me/bViewVariables">Telegramm</a></li>
-		</ul>
-		<br>
-		<h2>Posts:</h2>
-		<div id="post-container" style="display: flex; flex-direction: column; gap: 1rem; padding-inline: 1rem;">
-			<div id="post-title" class="post-container">
-				<h3>Дебаг-пост #1</h3>
-				<div id="post-content">Захардкоженный пост в HTML страницы для дебага</div>
-				<small>24.04.25 11:18 by SpyDev14</small>
-			</div>
-			<div id="post-title2" class="post-container">
-				<h3>Дебаг-пост #2</h3>
-				<div id="post-content2">Захардкоженный пост в HTML страницы для дебага</div>
-				<small>24.04.25 11:19 by SpyDev14</small>
-			</div>
-		</div>
-	</body>
-	<style>
-		body {
-			font-family: 'Roboto Mono', system-ui;
-			line-height: 1;
-		}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #4a6fa5;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
 
-		h1 {
-			font-weight: 800;
-		}
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --card-bg: #2d2d2d;
+                --text-color: #e0e0e0;
+                --accent-color: #6c9ce8;
+                --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+        }
 
-		h2 {
-			font-weight: 800;
-		}
-		
-		.post-container {
-			background-color: rgba(0, 0, 0, 0.1);
-			border-radius: 12px;
-			padding: 1rem;
-			padding-top: 0rem;
-		}
-	</style>
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --accent-color: #6c9ce8;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #4a6fa5;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        h2 {
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+
+        .subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contacts {
+            margin: 1.5rem 0;
+        }
+
+        .contacts ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contacts a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .contacts a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .post-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .post {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .post h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+        }
+
+        .post-content {
+            margin-bottom: 0.75rem;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .theme-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--card-bg);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .theme-switcher:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-switcher svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-switcher" aria-label="Переключить тему">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
+        </svg>
+    </button>
+
+    <header>
+        <h1>S I T E</h1>
+        <p class="subtitle">Сайт-пример для изучения Django (который я люблю читать как `Янго`)</p>
+    </header>
+
+    <section class="contacts">
+        <p>Мои контакты:</p>
+        <ul>
+            <li><a href="https://github.com/SpyDev14" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://t.me/bViewVariables" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+        </ul>
+    </section>
+
+    <main>
+        <h2>Posts:</h2>
+        <div class="post-container">
+            <article class="post">
+                <h3>Дебаг-пост #1</h3>
+                <div class="post-content">Захардкоженный пост в HTML страницы для дебага</div>
+                <div class="post-meta">24.04.25 11:18 by SpyDev14</div>
+            </article>
+
+            <article class="post">
+                <h3>Дебаг-пост #2</h3>
+                <div class="post-content">Захардкоженный пост в HTML страницы для дебага</div>
+                <div class="post-meta">24.04.25 11:19 by SpyDev14</div>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        // Проверка системных настроек темы
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Проверка сохранённой темы в localStorage
+        const currentTheme = localStorage.getItem('theme');
+        
+        // Установка темы при загрузке
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        console.log('Сайт загружен');
+    </script>
+</body>
 </html>
