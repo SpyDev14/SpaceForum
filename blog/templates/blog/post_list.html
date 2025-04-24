@@ -159,6 +159,41 @@
             height: 20px;
             fill: var(--text-color);
         }
+
+		.no-posts {
+			text-align: center;
+			margin: 2rem 0;
+			color: var(--text-color);
+			opacity: 0.7;
+		}
+
+		.sad-smiley {
+			width: 3rem;
+			height: 3rem;
+			margin: 0 auto 1rem;
+			display: block;
+			color: var(--text-color);
+			opacity: 0.8;
+			animation: sad-bounce 3s ease-in-out infinite;
+		}
+
+
+		@keyframes sad-bounce {
+			0%, 100% { 
+				transform: translateY(0) rotate(0deg);
+			}
+			25% {
+				transform: translateY(-5px) rotate(2deg);
+			}
+			50% {
+				transform: translateY(0) rotate(-2deg);
+			}
+			75% {
+				transform: translateY(3px) rotate(1deg);
+			}
+		}
+
+
     </style>
 </head>
 <body>
@@ -189,7 +224,29 @@
 					<div class="post-meta">{{post.created_date|date:"d.m.y H:i"}} by {{post.author}}</div>
 				</article>
 			{% empty %}
-				<p class="subtitle">Постов пока нет :&lt</p>
+			<div class="no-posts">
+				<svg class="sad-smiley" width="2rem" height="2rem" viewBox="0 0 24 24">
+					<!-- Голова -->
+					<circle cx="12" cy="12" r="10" 
+							fill="none" 
+							stroke="currentColor" 
+							stroke-width="1.2"/>
+					
+					<!-- Глаза (точки) -->
+					<circle cx="8.5" cy="9.5" r="1" 
+							fill="currentColor"/>
+					<circle cx="15.5" cy="9.5" r="1" 
+							fill="currentColor"/>
+					
+					<!-- Грустный рот (арка вниз) -->
+					<path d="M8 15.5 Q12 13 16 15.5" 
+						  stroke="currentColor" 
+						  stroke-width="1.5" 
+						  fill="none" 
+						  stroke-linecap="round"/>
+				</svg>
+				<p class="subtitle">Постов пока нет...</p>
+			</div>
 			{% endfor %}
         </div>
     </main>
