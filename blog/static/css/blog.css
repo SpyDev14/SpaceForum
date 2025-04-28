@@ -1,0 +1,524 @@
+:root {
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --accent-color: #4a6fa5;
+    --shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    --inner-shadow: 0 -0.125rem -0.5rem rgba(0, 0, 0, 0.1);
+    --general-radius: 0.75rem;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text-color: #e0e0e0;
+        --accent-color: #6c9ce8;
+        --shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+        --inner-shadow: 0 -0.125rem -0.5rem rgba(0, 0, 0, 0.1);
+    }
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #e0e0e0;
+    --accent-color: #6c9ce8;
+    --shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    --inner-shadow: 0 -0.125rem -0.5rem rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --accent-color: #4a6fa5;
+    --shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+    --inner-shadow: 0 -0.125rem -0.5rem rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 2rem;
+		gap: 3rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.05em;
+}
+
+h2 {
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.subtitle {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.contacts {
+    margin: 0.5rem 0;
+}
+
+.contacts ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.contacts a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.contacts a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post {
+    background: var(--card-bg);
+    border-radius: var(--general-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.post h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--accent-color);
+}
+
+.post-content {
+    margin-bottom: 0.75rem;
+    max-height: 12rem;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.theme-switcher {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 999rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+}
+
+.theme-switcher:hover {
+    transform: scale(1.1);
+}
+
+.theme-switcher svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: var(--text-color);
+}
+
+.no-posts {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.sad-smiley {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 1rem;
+    display: block;
+    color: var(--text-color);
+    opacity: 0.8;
+    animation: sad-bounce 3s ease-in-out infinite;
+}
+
+
+@keyframes sad-bounce {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-0.375rem) rotate(2deg);
+    }
+    50% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    75% {
+        transform: translateY(0.2rem) rotate(1deg);
+    }
+}
+
+/* Post detail page */
+.post-detail {
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.post-detail-full {
+    background: var(--card-bg);
+    border-radius: var(--general-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.post-detail-title {
+    font-size: 2rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-color);
+}
+
+.post-detail-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Контейнер мета-данных */
+.post-detail-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+/* Блок с информацией об авторе и дате */
+.post-meta-info {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Блок с кнопками действий */
+.post-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Иконки в мета-данных */
+.post-detail-author,
+.post-detail-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.post-detail-meta svg {
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.post-detail-content {
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.post-detail-footer {
+    border-top: 0.063rem solid rgba(0,0,0,0.1);
+    padding-top: 1rem;
+}
+
+.accent-btn {
+    display: inline-flex;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--general-radius);
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.accent-btn:hover {
+    background-color: var(--accent-color);
+    opacity: 0.9;
+    transform: translateY(-0.063rem);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.accent-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0.125rem 0.187rem rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль кнопки "Назад" */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.back-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+    transform: translateX(-0.187rem);
+}
+/* MARK: Стили параша
+/* Стиль кнопки создания поста */
+.post-btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Анимация плюса */
+.post-btn:hover svg {
+    transform: rotate(90deg);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* Контейнер формы */
+.post-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1.25rem;
+    background: var(--card-bg);
+    border-radius: var(--general-radius);
+    box-shadow: var(--shadow);
+}
+
+/* Стили для всех полей ввода */
+.post-form input[type="text"],
+.post-form textarea {
+    width: 100%;
+    box-sizing: border-box; /* Важно для корректного расчёта ширины с padding */
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.25rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+    border: 2px solid rgba(0,0,0,0.02);
+    border-radius: var(--general-radius);
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.2s ease;
+    box-shadow: var(--inner-shadow);
+}
+
+.post-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* Специфичные стили для текстового поля */
+.post-form textarea {
+    min-height: 14rem;
+    resize: none;
+    line-height: 1.6;
+
+    /* Ваши существующие стили */
+    scrollbar-width: thin; /* Для Firefox */
+    scrollbar-color: var(--accent-color) rgba(0,0,0,0.1); /* Для Firefox */
+    overflow-y: auto;
+}
+
+/* Для темной темы */
+@media (prefers-color-scheme: dark) {
+    .post-form textarea::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.05);
+    }
+}
+
+.post-form textarea::-webkit-scrollbar-thumb {
+    transition: background-color 0.3s;
+}
+
+/* Кастомный скроллбар для WebKit-браузеров (Chrome, Safari) */
+.post-form textarea::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.post-form textarea::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin: 4px 0;
+}
+
+.post-form textarea::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.post-form textarea::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+    opacity: 0.8;
+}
+
+/* Плавная анимация скролла */
+.post-form textarea {
+    scroll-behavior: smooth;
+}
+
+/* Фокус-эффект */
+.post-form input[type="text"]:focus,
+.post-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(70, 130, 180, 0.2);
+}
+
+/* Метки (labels) */
+.post-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Кнопка отправки */
+.post-form .submit-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--general-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.post-form .submit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-0.063rem);
+}
+
+.post-form .errorlist {
+    color: #e74c3c;
+    margin-bottom: 1rem;
+    padding-left: 1.25rem;
+}
+
+.post-form .error input,
+.post-form .error textarea {
+    border-color: #e74c3c;
+}
+
+.post-form input,
+.post-form textarea {
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Базовый стиль для всех иконок-кнопок */
+.icon-btn {
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: currentColor;
+    opacity: 0.7;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    line-height: 0; /* Фикс для выравнивания SVG */
+}
+
+.icon-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.08);
+    transform: scale(1.1);
+}
+
+.icon-btn:active {
+    transform: translateY(0);
+}
+
+/* Специфичные стили для кнопок */
+.edit-btn:hover {
+    color: var(--accent-color); /* Синий акцент */
+}
+
+.delete-btn:hover {
+    color: #e74c3c; /* Красный акцент */
+}
+
+/* Контейнер для группы кнопок */
+.post-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.icon-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.edit-btn:hover svg {
+    transform: rotate(-15deg);
+}
+
+.delete-btn:hover svg {
+    transform: scale(1.1);
+}
+

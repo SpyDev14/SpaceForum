@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+    <button class="theme-switcher" aria-label="Переключить тему">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
+        </svg>
+    </button>
+
+    <header style="margin-bottom: 3rem;">
+        <h1>S I T E</h1>
+        <p class="subtitle">Сайт-пример для изучения Django (который я люблю читать как `Янго`)</p>
+		<section class="contacts">
+			<ul>
+				<li><a href="https://github.com/SpyDev14" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+				<li><a href="https://t.me/bViewVariables" target="_blank" rel="noopener noreferrer">Telegram</a></li>
+			</ul>
+		</section>
+    </header>
+
+
+    <main>
+        {% block content %}
+		{% endblock %}
+    </main>
+
+    <script>
+        // Проверка системных настроек темы
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Проверка сохранённой темы в localStorage
+        const currentTheme = localStorage.getItem('theme');
+        
+        // Установка темы при загрузке
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        
+        // Переключение темы
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        
+        themeSwitcher.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        console.log('Сайт загружен');
+    </script>
+</body>
+</html>
