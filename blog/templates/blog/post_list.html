@@ -1,282 +1,56 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f5f5f5;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --accent-color: #4a6fa5;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --border-radius: 12px;
-        }
+{% extends 'blog/base.html' %}
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1a1a1a;
-                --card-bg: #2d2d2d;
-                --text-color: #e0e0e0;
-                --accent-color: #6c9ce8;
-                --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            }
-        }
+{% block content %}
+<div  style="
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	padding-bottom: 8rem;">
 
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --text-color: #e0e0e0;
-            --accent-color: #6c9ce8;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f5f5f5;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --accent-color: #4a6fa5;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Roboto Mono', monospace;
-            line-height: 1.6;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-			gap: 3rem;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 14rem;
-        }
-
-        h1 {
-            font-weight: 700;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.05em;
-        }
-
-        h2 {
-            font-weight: 600;
-            margin-top: 2rem;
-        }
-
-        .subtitle {
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        .contacts {
-            margin: 0.5rem 0;
-        }
-
-        .contacts ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .contacts a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        .contacts a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-
-        .post-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .post {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .post:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .post h3 {
-            margin-top: 0;
-            margin-bottom: 0.75rem;
-            color: var(--accent-color);
-        }
-
-        .post-content {
-            margin-bottom: 0.75rem;
-        }
-
-        .post-meta {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        .theme-switcher {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--card-bg);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
-        }
-
-        .theme-switcher:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-switcher svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-color);
-        }
-
-		.no-posts {
-			text-align: center;
-			margin: 2rem 0;
-			color: var(--text-color);
-			opacity: 0.7;
-		}
-
-		.sad-smiley {
-			width: 3rem;
-			height: 3rem;
-			margin: 0 auto 1rem;
-			display: block;
-			color: var(--text-color);
-			opacity: 0.8;
-			animation: sad-bounce 3s ease-in-out infinite;
-		}
-
-
-		@keyframes sad-bounce {
-			0%, 100% { 
-				transform: translateY(0) rotate(0deg);
-			}
-			25% {
-				transform: translateY(-5px) rotate(2deg);
-			}
-			50% {
-				transform: translateY(0) rotate(-2deg);
-			}
-			75% {
-				transform: translateY(3px) rotate(1deg);
-			}
-		}
-
-
-    </style>
-</head>
-<body>
-    <button class="theme-switcher" aria-label="Переключить тему">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
-        </svg>
-    </button>
-
-    <header>
-        <h1>S I T E</h1>
-        <p class="subtitle">Сайт-пример для изучения Django (который я люблю читать как `Янго`)</p>
-		<section class="contacts">
-			<ul>
-				<li><a href="https://github.com/SpyDev14" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-				<li><a href="https://t.me/bViewVariables" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-			</ul>
-		</section>
-    </header>
-
-
-    <main>
-        <div class="post-container">
-			{% for post in posts %}
-				<article class="post">
-					<h3>{{ post.title|truncatechars:96 }}</h3>
-					<div class="post-content">{{ post.text }}</div>
-					<div class="post-meta">{{post.created_date|date:"d.m.y H:i"}} by {{post.author}}</div>
-				</article>
-			{% empty %}
-			<div class="no-posts">
-				<svg class="sad-smiley" width="2rem" height="2rem" viewBox="0 0 24 24">
-					<!-- Голова -->
-					<circle cx="12" cy="12" r="10" 
-							fill="none" 
-							stroke="currentColor" 
-							stroke-width="1.2"/>
-					
-					<!-- Глаза (точки) -->
-					<circle cx="8.5" cy="9.5" r="1" 
-							fill="currentColor"/>
-					<circle cx="15.5" cy="9.5" r="1" 
-							fill="currentColor"/>
-					
-					<!-- Грустный рот (арка вниз) -->
-					<path d="M8 15.5 Q12 13 16 15.5" 
-						  stroke="currentColor" 
-						  stroke-width="1.5" 
-						  fill="none" 
-						  stroke-linecap="round"/>
-				</svg>
-				<p class="subtitle">Постов пока нет...</p>
-			</div>
-			{% endfor %}
-        </div>
-    </main>
-
-    <script>
-        // Проверка системных настроек темы
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Проверка сохранённой темы в localStorage
-        const currentTheme = localStorage.getItem('theme');
-        
-        // Установка темы при загрузке
-        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
-        
-        // Переключение темы
-        const themeSwitcher = document.querySelector('.theme-switcher');
-        
-        themeSwitcher.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-
-        console.log('Сайт загружен');
-    </script>
-</body>
-</html>
+	{% if user.is_authenticated %}
+		<a href="{% url 'post_create' %}" class="post-btn accent-btn">
+			Пост
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M12 5v14M5 12h14"/>
+			</svg>
+		</a>
+	{% else %}
+		<div style="height: 2.4rem;"></div>
+	{% endif %}
+</div>
+<div class="post-container">
+	{% for post in posts %}
+		<a href="{% url 'post_detail' pk=post.pk %}" style="text-decoration: none; color: inherit;">
+			<article class="post">
+				<h3>{{ post.title|truncatechars:MAX_POST_PREVIEW_TITLE_LEN }}</h3>
+				<div class="post-content">{{ post.text|truncatechars:MAX_POST_PREVIEW_TEXT_LEN|linebreaksbr }}</div>
+				<div class="post-meta">{{post.created_date|date:"d.m.y H:i"}} by {{post.author}}</div>
+			</article>
+		</a>
+	{% empty %}
+	<div class="no-posts">
+		<svg class="sad-smiley" width="2rem" height="2rem" viewBox="0 0 24 24">
+			<!-- Голова -->
+			<circle cx="12" cy="12" r="10" 
+					fill="none" 
+					stroke="currentColor" 
+					stroke-width="1.2"/>
+			
+			<!-- Глаза (точки) -->
+			<circle cx="8.5" cy="9.5" r="1" 
+					fill="currentColor"/>
+			<circle cx="15.5" cy="9.5" r="1" 
+					fill="currentColor"/>
+			
+			<!-- Грустный рот (арка вниз) -->
+			<path d="M8 15.5 Q12 13 16 15.5" 
+				  stroke="currentColor" 
+				  stroke-width="1.5" 
+				  fill="none" 
+				  stroke-linecap="round"/>
+		</svg>
+		<p class="subtitle">Постов пока нет...</p>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
