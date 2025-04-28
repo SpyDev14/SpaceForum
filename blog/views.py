@@ -13,7 +13,7 @@ from .                import constants
 
 @require_GET
 def get_post_list(request: HttpRequest):
-	posts: QuerySet = Post.objects.filter(created_date__lte = timezone.now()).order_by('-created_date')
+	posts: QuerySet = Post.objects.filter(published_date__lte = timezone.now()).order_by('-published_date')
 	
 	return render(
 		request, 'blog/post_list.html',

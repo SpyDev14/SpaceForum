@@ -24,7 +24,7 @@
 			<article class="post">
 				<h3>{{ post.title|truncatechars:MAX_POST_PREVIEW_TITLE_LEN }}</h3>
 				<div class="post-content">{{ post.text|truncatechars:MAX_POST_PREVIEW_TEXT_LEN|linebreaksbr }}</div>
-				<div class="post-meta">{{post.created_date|date:"d.m.y H:i"}} by {{post.author}}</div>
+				<div class="post-meta">{{post.published_date|date:"d.m.y H:i"}} by {{post.author}}</div>
 			</article>
 		</a>
 	{% empty %}
