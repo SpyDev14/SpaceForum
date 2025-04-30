@@ -12,6 +12,7 @@ class Post(models.Model):
 	text  = models.TextField()
 
 	published_date = models.DateTimeField(default = timezone.now)
+	post_image = models.ImageField(upload_to='images/post_images/', blank = True, null = True)
 
 	def publish(self) -> None:
 		self.save()

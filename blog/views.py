@@ -38,7 +38,7 @@ def post_create(request: HttpRequest):
 		return HttpResponseForbidden()
 	
 	if request.POST:
-		form = PostForm(request.POST)		
+		form = PostForm(request.POST, request.FILES) if request.FILES else PostForm(request.POST)
 	
 		if form.is_valid(): 
 			post: Post = form.save(commit = False) # commit - сохранять сразу в БД? Нет, сначало добавим автора
@@ -48,11 +48,16 @@ def post_create(request: HttpRequest):
 			return redirect('post_detail', pk = post.pk)
 
 		else:
-			return render(request, 'blog/post_edit.html', {
-                    'form': form,
-                    'post': post,
-                    'method': 'post'
-                }, status=400)
+			return render(
+				request,
+				'blog/post_edit.html',
+				{
+					'form': form,
+					'post': post,
+					'method': 'post'
+				},
+				status=400
+			)
 
 	
 	
@@ -87,7 +92,7 @@ def post_edit(request: HttpRequest, pk: int):
 	# Запрос должен делаться через PUT, но в моей разметке реализация поддерживает только POST
 	elif request.method in ('POST', 'PUT'): # ↓ для текущей реализации
 		put_data = QueryDict(request.body) if not request.POST else request.POST
-		form = PostForm(put_data, instance = post)
+		form = PostForm(put_data, request.FILES, instance = post) if request.FILES else PostForm(put_data, instance = post)
 
 		if form.is_valid():
 			updated_post: Post = form.save()

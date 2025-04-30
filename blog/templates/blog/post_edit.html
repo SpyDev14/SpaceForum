@@ -15,7 +15,7 @@
 	</a>
 </div>
 
-<form method="post" class="post-form">
+<form method="post" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
     
     <div>
@@ -26,6 +26,11 @@
     <div>
         {{ form.text.label_tag }}
         {{ form.text }}
+    </div>
+
+	<div>
+        {{ form.post_image.label_tag }}
+        {{ form.post_image }}
     </div>
 
     <button type="submit" class="submit-btn">Опубликовать</button>

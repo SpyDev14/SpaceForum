@@ -26,6 +26,14 @@
 <div class="post-detail">
 	<article class="post-detail-full">
 		<header class="post-detail-header">
+			{% if post.post_image %}
+				<img class="post-img" src="{{ post.post_image.url }}" alt="img not found ☹"
+				style="
+					display: flex;
+					width: 100%;
+					aspect-ratio: 2/1;
+				">
+			{% endif %}
 			<h1 class="post-detail-title">{{ post.title }}</h1>
 			
 			<div class="post-detail-meta">
